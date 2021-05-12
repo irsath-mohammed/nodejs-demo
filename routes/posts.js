@@ -30,6 +30,7 @@ router.patch("/:id", verify, getPost, async (req, res) => {
   if (req.body.description != null) {
     res.post.description = req.body.description;
   }
+  res.post.userId = req.user['_id'];
   try {
     const updatedPost = await res.post.save();
     res.json(updatedPost);
