@@ -3,6 +3,8 @@ const app = express();
 const dotenv = require('dotenv')
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const MongoClient = require('mongodb').MongoClient;
+const assert = require('assert');
 
 // const bodyParser = require('body-parser');
 
@@ -15,9 +17,19 @@ const userRoute = require('./routes/users');
 dotenv.config();
 
 // conect db
-mongoose.connect("mongodb+srv://irsath:Shift%40786@cluster0.x1bfw.mongodb.net/DemoDB?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true},
-  () => console.log('DB connected')
-);
+// mongoose.connect("mongodb+srv://irsath:Shift%40786@cluster0.x1bfw.mongodb.net/DemoDB?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true},
+//   () => console.log('DB connected')
+// );
+
+
+mongoose
+  .connect("mongodb://localhost/bezkod_db", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
+  .then(() => console.log("Successfully connect to MongoDB."))
+  .catch(err => console.error("Connection error", err));
+
 
 // middleware
 app.use(express.json());
